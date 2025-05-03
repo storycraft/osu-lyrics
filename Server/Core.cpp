@@ -89,7 +89,11 @@ BOOL WINAPI proxyReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToR
         return FALSE;
     }
 
-    
+    // 파일이 디스크 파일이 아니면 스킵
+    if (GetFileType(hFile) != FILE_TYPE_DISK) {
+        return TRUE;
+    }
+
     TCHAR nameTmpFilePath[MAX_PATH];
 
     DWORD dwTmpFilePathLength = GetFinalPathNameByHandle(hFile, nameTmpFilePath, MAX_PATH, VOLUME_NAME_DOS);
